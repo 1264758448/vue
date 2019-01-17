@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.min.js"></script>
+</head>
+<body>
+    <div id="box">
+            <input type="text" v-model="a">
+            <input type="text" v-model="b">
+            <button @click='add'>添加</button>
+            <ul>
+                <li v-for='(v,i) of list'>
+                    {{v.name}} --- {{v.sex}}
+                </li>
+            </ul>
+    </div>
+    <script>
+        
+        let vm = new Vue({
+            el:"#box",
+            data:{
+                a:'',
+                b:'',
+                list:[
+                    {
+                    name:'张三',
+                    sex:'男'
+                    }
+                ]
+            },
+            methods:{
+                    add(){
+                        var pp = this.a
+                        var cc = this.b
+                        this.list.push({name:pp,sex:cc})
+                    }
+                }
+        })
+
+    </script>
+</body>
+</html>

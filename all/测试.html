@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.min.js"></script>
+    <style>
+        .a{
+            color: red;
+        }
+        .b{
+            color: blue
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="pc">
+        <h2 :title="biaoti">biaoti</h2>
+        <h2 :data-id="aaa">aaaa</h2>
+        <button @click="dianwo">666</button>
+        <h2 :class="['red','bcg',flag?'a':'b']">刀山火海</h2>
+        <button @click="dianwo">77777</button>
+        <ul>
+            <li v-for="(item,index) in list">
+                name:{{item}} ----- 索引:{{index}}
+            </li>
+        </ul>
+        
+        <ul>
+            <li v-for="(item,index) in obj" >
+                    key:{{item}} ----- value:{{index}}
+            </li>
+        </ul>
+
+        <ul>
+                <li v-for="(item,index) in str" >
+                        值:{{item}} ----- 索引:{{index}}
+                </li>
+        </ul>
+    </div> -->
+
+    <div class="ll">
+            <h2>{{str}}</h2>
+            <button @click="start">点击我让文字跑起来</button>
+            <button @click="stop">停下来</button>
+    </div>
+
+    <script>
+        // var cp = new Vue({
+        //     el:".pc",
+        //     data:{
+        //        msg:"v-bind",
+        //        biaoti:"我是一个title",
+        //        aaa:"自定义id",
+        //        flag:true,
+        //        list:[1,2,3,4,5],
+        //        obj:{
+        //            a:1,
+        //            b:2,
+        //            c:3
+        //        },
+        //        str:'笑死我了'
+        //     },
+        //     methods:{
+        //         dianwo(){
+        //            this.flag=!this.flag
+        //         }
+        //     }
+        // })
+
+        var aa = new Vue({
+            el:".ll",
+            data:{
+                str:'我是vue小白,准备进阶大腿了,哈哈哈哈',
+                time:'',
+            },
+            methods:{
+             start(){
+                    if(this.time) return;
+                    this.time= setInterval(()=>{
+                    var start = this.str.substring(0,1);
+                    var end = this.str.substring(1);
+                    this.str=end+start
+                    },1000)
+                },
+                stop(){
+                    clearInterval(this.time)
+                    this.time='';
+                }
+            }
+        })
+    </script>
+</body>
+</html>

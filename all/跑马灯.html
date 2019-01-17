@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.min.js"></script>
+</head>
+<body>
+    <div id="box">
+            <p>{{msg}}</p>
+            <button @click ="pao">跑</button><button @click='ting'>停</button>
+            <div v-text='a+6666'></div>
+    </div>
+<script>
+    let vm =new Vue({
+        el:"#box",
+        data:{
+            msg:"给老子浪起来!别停下!!再快点!!!",
+            time:'',
+            a:'666'
+        },
+        methods:{
+            pao(){
+                // clearInterval(this.time)
+                if(this.time) return
+                this.time = setInterval(()=>{
+                    let start = this.msg.substr(0,1)
+                    let end = this.msg.substr(1)
+                    this.msg=end+start
+                },100)
+            },
+            ting(){
+                clearInterval(this.time)
+                this.time=''
+            }
+        }
+    })
+</script>
+</body>
+</html>

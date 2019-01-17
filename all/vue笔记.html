@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vuev2.5.21.js"></script>
+</head>
+<body>
+        Axios 等于ajax
+
+        vue 学习前提 js  es6 webpack npm 
+        
+        <div id="app">{{content}}</div>
+        <script>
+             var app = new Vue({
+               el:"#app",
+               data:{
+                  content:"hello world"
+               }
+              });
+             setTimeout(function(){
+                    app.$data.content="world"
+                },2000)    
+        </script>
+        先创建一个实例
+         el    接管ID /限制实例对象
+         data  定义数据
+<!-- ---------------------------------------------- -->
+<div id="app">
+    <input type="text" v-model="inputValue">
+    <button v-on:click="BtnClick">提交</button>
+    <ul>
+        <li v-for="item in list">{{item}}</li>
+    </ul>
+</div>
+<script>
+var app= new Vue({
+    el:"#app",
+    data:{
+        list:["第一课内容","第二课内容"],
+        inputValue:""
+    },
+    methods:{
+        BtnClick:function(){
+        //   console.log(this.list);
+        this.list.push(this.inputValue);
+        this.inputValue=""; 
+        }
+    }
+})
+</script>
+    v-for="item in list"   这是vue的循环渲染数据
+    v-on:click="BtnClick"   绑定事件 /可以简写成  @click
+    v-model                 是获取数据(拿值)他必须和一个事件进行绑定 /他是双向绑定input发生改变,data也会发生.
+        methods                 定义实例(会自动执行click点击事件)/方法
+<!-- ------------------------------------- -->
+mvp理论知识点:
+    view 视图 dom 视图层
+    model 控制台  存储数据 模型层
+    Presenter中转站
+    jquery是面向dom 
+    vue面向数据
+    vue 用到es5 核心api  和虚拟dom
+    <!-- ------------------------------------- -->
+    <div id="app">
+            <input type="text" v-model="inputValue">
+            <button @click="BtnClick">提交</button>
+            <ul>
+                <!-- <li v-for="item in list">{{item}}</li> -->
+                <todo-item v-bind:content="item"  v-for="item in list"></todo-item>
+
+            </ul>
+    </div>
+    <script>
+        Vue.component("TodoItem",{
+            props:["content"],
+            template:"<li>{{content}}</li>"
+        })
+        var app= new Vue({
+            el:"#app",
+            data:{
+                inputValue:"",
+                list:[],
+              
+            },
+            methods:{
+                BtnClick:function(){
+                //   console.log(this.list);
+                this.list.push(this.inputValue);
+                this.inputValue=""; 
+                }
+            }
+        })
+    </script>
+    v-dind:content="item"        向组件传递值   子组件的模板  /可以简写:content="item"
+    props=["content"]            接受组件的值   外部传来的值
+
+  
+
+
+        
+</body>
+</html>
