@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+	<script src="./lib/vue-2.4.0.js"></script>
+	<style>
+		tr:hover {
+			background-color: hotpink;
+			transition: all 0.8s ease;
+		}
+
+		.v-enter,
+		.v-leave-to {
+		opacity: 0;
+		transform: translateY(80px);
+		}
+
+		.v-enter-active,
+		.v-leave-active {
+		transition: all 0.6s ease;
+		}
+
+	
+		.v-move {
+		transition: all 0.6s ease;
+		}
+		.v-leave-active{
+		position: absolute;
+		}
+		tr{
+			/* background-color: hotpink; */
+			transition: all .8s ease;
+			border: 1px dashed #999;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">自定义属性</h3>
+			</div>
+			<div class="panel-body">
+				<label>用户名:
+					<input type="text" placeholder="请输入用户名" v-model="name" @keyup.enter="add" v-color="'pink'">
+				</label>
+				<input type="button" value="添加" class="btn btn-prmary" @click="add">
+				<label>搜索:
+					<input type="text" placeholder="请输入要搜索用户名" autofocus>
+				</label>
+			</div>
+		</div>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>name</th>
+					<th>ctime</th>
+					<th>Operation</th>
+				</tr>
+			</thead>
+
+			<!-- <tbody> -->
+			<transition-group appear tag="tbody">
+				<tr v-for="item in list" :key="item.id">
+					<td>{{item.id}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.ctime}}</td>
+					<td>
+						<a href="javascript:view(0)" @click.prevent="del(item.id)">delete</a>
+					</td>
+				</tr>
+			</transition-group>
+
+			<!-- </tbody> -->
+		</table>
+	</div>
+	<script>
+		new Vue({
+			el: "#app",
+			data: {
+				id: '',
+				name: '',
+				list: [{
+						id: 0,
+						name: '李白',
+						ctime: new Date()
+					},
+					{
+						id: 1,
+						name: '小乔',
+						ctime: new Date()
+					}
+				]
+			},
+			methods: {
+				add() {
+					//console.log(this.name)
+					this.list.push({
+						id: ++this.id + 1,
+						name: this.name,
+						ctime: new Date()
+					})
+				},
+				del(id) {
+					this.list.splice(this.list.findIndex(item => this.id === id), 1)
+				}
+			},
+			directives: {
+				"color": {
+					bind: (el, binding) => {
+						el.style.color = binding.value
+					}
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

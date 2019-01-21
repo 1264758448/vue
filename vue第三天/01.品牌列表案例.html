@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.4.0.js"></script>
+  <script src="./lib/vue-resource-1.3.4.js"></script>
+  <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+</head>
+<body>
+  <div id="app">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">添加品牌</h3>
+      </div>
+      <div class="panel-body form-inline">
+        <!-- <label>
+          Id:
+          <input type="text" class="form-control" v-model="id">
+        </label> -->
+
+        <label>
+          Name:
+          <input type="text" class="form-control" v-model="name" >
+        </label>
+        <input type="button" value="添加" class="btn btn-primary" @click='ss'>
+        <label>
+          搜索名称关键字：
+          <input type="text" class="form-control" v-model="keywords" autofocus>
+        </label>
+      </div>
+    </div>
+
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Ctime</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in sc(keywords)" :key="item.id">
+          <td>{{item.id}}</td>
+          <td v-text="item.name"></td>
+          <td>{{ item.ctime}}</td>
+          <td>
+            <a href="" @click.prevent="dd(item.id)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- search(keywords) -->
+  <script src="./moment.js"></script>
+    <script>
+      let vm = new Vue({
+        el:"#app",
+        data:{
+          keywords:'',
+          name:'',
+          list:[]
+        },
+        created() {
+            this.cc();
+        },
+        updated(){
+            // console.log(132456789)
+            // if(this.list.length>=1){
+            //   for(var i = this.list[0].id;i<this.list[0].id+this.list.length;i++){
+            //     this.dd(i)
+            //    }
+            // }else{
+            //  alert('清楚完毕')
+            //  return
+            // }
+       },
+        methods:{
+            // 数据渲染
+            cc(){
+              this.$http.get('http://vue.lovegf.cn:8899/api/getprodlist').then(res=>{
+                  this.list=res.body.message
+              })
+            },
+
+            // 添加
+            ss(){
+              this.$http.post('http://vue.lovegf.cn:8899/api/addproduct',{name:this.name}).then(res=>{
+                console.log(res,111)
+                this.cc();
+                this.ss();
+              })
+            },
+
+            // 删除
+            dd(id){
+              this.$http.get('http://vue.lovegf.cn:8899/api/delproduct/'+id).then(res=>{
+                this.cc();
+                // this.dd(++id);
+                // console.log(++id)
+              })
+            },
+
+            // 搜索
+            sc(keywords){
+                return this.list.filter(item=>{
+                    if(item.name.indexOf(keywords)!=-1){
+                      return item
+                      this.keywords=''
+                    }
+                })
+            }
+        }
+      })
+    </script>
+</body>
+
+</html>

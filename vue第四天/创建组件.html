@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="box">
+        <pc></pc>
+    </div>
+  <template id="zujian1">
+      <h1>实验</h1>
+  </template>
+
+  <script>
+    //   公共组件
+    //   Vue.component('shiyan',{
+    //     template:'#zujian1'
+    //   })
+      let vm = new Vue({
+          el:"#box",
+          data:{},
+        //   私有组件
+          components:{
+              'pc':{
+                template:'#zujian1'
+              }
+          }
+      })
+
+
+  </script>
+</body>
+</html>

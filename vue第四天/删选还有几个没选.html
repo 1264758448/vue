@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <style>
+        li{
+            list-style: none;
+        }
+        .huise{color:#ccc
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li v-for='item in list'  v-bind:class="item.flag==true ? 'huise': ''">
+                <input type="checkbox"   @click = 'item.flag = !item.flag,pc(item.flag,item.id)' />
+                {{item.name}}
+            </li>
+        </ul>
+        <p>还有{{all}}未选中</p>
+    </div>
+    <script>
+        let vm = new Vue({
+            el:"#box",
+            data:{
+                list:[
+                    {name:'西红柿',id:1,flag:false},
+                    {name:'香蕉',id:2,flag:false},
+                    {name:'橘子',id:3,flag:false}
+                ],
+                allmus:[],
+                all:0
+            },
+            methods:{
+                pc(flag,id){
+                    if(flag==true){
+                        this.allmus.push(id)
+                       
+                    }else{
+                        this.allmus.splice(id-1,1)
+                    }
+                    console.log(this.allmus)
+                    this.all = this.list.length-this.allmus.length
+                }
+            }
+        })
+    </script>
+</body>
+</html>

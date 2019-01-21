@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="text"  v-model='a'>
+        <select  v-model='b'>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" v-model='c'>
+        <button value="=" @click='all'>=</button>
+        <input type="text" readonly v-model='ans'>
+    </div>
+    <script>
+        let vm = new Vue({
+            el:"#box",
+            data:{
+                a:0,
+                b:"+",
+                c:0,
+                ans:0
+            },
+            methods:{
+                all(){
+                    if(this.b=="+"){
+                        this.ans =  parseInt(this.a)+parseInt(this.c)
+                    }
+                    if(this.b=="-"){
+                        this.ans =  parseInt(this.a)-parseInt(this.c)
+                    }
+                    if(this.b=="*"){
+                        this.ans =  parseInt(this.a)*parseInt(this.c)
+                    }
+                    if(this.b=="/"){
+                        this.ans =  parseInt(this.a)/parseInt(this.c)
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
